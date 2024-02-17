@@ -20,6 +20,7 @@ function Calculator() {
   function Operation({ id }) {
     function handleClick() {
       if (id === "=") {
+        
         // Perform the calculation based on the current operation
         if (operation === "+") {
           setNum(equation + num);
