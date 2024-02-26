@@ -4,13 +4,13 @@ interface EquationDisplayProps {
     num: any;
 }
 
-export default function EquationDisplay({num}: EquationDisplayProps) {
+export default function EquationDisplay({ num }: EquationDisplayProps) {
     return (
       <form id="result" style={{
         fontFamily: "monospace",
         fontSize: "20px",
       }}>
-        <input type="text" value={num} disabled />
+        <input type="text" value={String(num)} disabled />
       </form>
     );
   }

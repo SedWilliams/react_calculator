@@ -12,19 +12,23 @@ import Button from "./components/Button";
 function Calculator() {
 
   //what's currently displayed in the equation bar
-  const [num, setNum] = useState(0);
+  const [TempNumPlaceholder, setTempNumPlaceholder] = useState(0);
 
   //Holds info about the whole equation
-  const [Equation, setEquation] = useState(0);
+  const [Equation, setEquation] = useState("");
 
   //contains what operation is to be performed
   const [Operation, setOperation] = useState("");
 
-  function handleButtonPress(id: any) {
-    if (Equation === 0) {
-      setEquation(id);
+  function handleButtonPress(insertedNum: any) {
+    if (TempNumPlaceholder === 0) {
+      setTempNumPlaceholder(insertedNum);
+      console.log(insertedNum);
     } else {
-      setEquation(Number(`${Equation}${id}`));
+      setTempNumPlaceholder((prev) => (
+        prev * 10 + insertedNum
+      ));
+      console.log(insertedNum);
     }
   }
 
@@ -75,21 +79,21 @@ function Calculator() {
     <div>
       <h1>Calculator</h1>
       <div className="calculator">
-        <EquationDisplay num={Equation}/>
+        <EquationDisplay num={TempNumPlaceholder}/>
 
         <div className="buttons">
           <div>
-            <Button id={1} handleButtonPress={handleButtonPress}/>
-            <Button id={2} handleButtonPress={handleButtonPress}/>
-            <Button id={3} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={1} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={2} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={3} handleButtonPress={handleButtonPress}/>
             <br />
-            <Button id={4} handleButtonPress={handleButtonPress}/>
-            <Button id={5} handleButtonPress={handleButtonPress}/>
-            <Button id={6} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={4} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={5} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={6} handleButtonPress={handleButtonPress}/>
             <br />
-            <Button id={7} handleButtonPress={handleButtonPress}/>
-            <Button id={8} handleButtonPress={handleButtonPress}/>
-            <Button id={9} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={7} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={8} handleButtonPress={handleButtonPress}/>
+            <Button insertedNum={9} handleButtonPress={handleButtonPress}/>
           </div>
 
           <div className="operations-1 calc">
