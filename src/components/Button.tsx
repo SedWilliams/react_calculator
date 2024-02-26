@@ -1,6 +1,7 @@
 import React from "react";
 
-//Have button take in id prop, and set it to a local variable
+//the problem was I was referencing a variable passed to my handleClick function
+//when i should have been referencing the variable passed to my component
 
 interface ButtonProps {
     insertedNum: any;
@@ -9,7 +10,7 @@ interface ButtonProps {
 
 export default function Button({ insertedNum, handleButtonPress}: ButtonProps) {
 
-    function handleClick(insertedNum) {
+    function handleClick() {
       handleButtonPress(insertedNum);
     }
 
