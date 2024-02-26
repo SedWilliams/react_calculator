@@ -1,5 +1,7 @@
 import React from "react";
 
+//Have button take in id prop, and set it to a local variable
+
 interface ButtonProps {
     insertedNum: any;
     handleButtonPress(insertedNum): void;
