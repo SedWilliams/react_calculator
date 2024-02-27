@@ -1,7 +1,7 @@
 //TODO:
 //  * Make code more cohesive
 //    * --Seperate equation bar into component--
-//    * Seperate button into its own component
+//    * --Seperate button into its own component--
 //    * Refactor "Operation" (calculation) logic
 //    * Make tutorial covering how to make the calculator
 
@@ -12,28 +12,32 @@ import Button from "./components/Button";
 function Calculator() {
 
   //what's currently displayed in the equation bar
+  //expects type: number
   const [TempNumPlaceholder, setTempNumPlaceholder] = useState(0);
 
-  //Holds info about the whole equation
-  const [Equation, setEquation] = useState("");
+  //Holds the state of the whole equation
+  //expects type: number
+  const [Equation, setEquation] = useState(0);
 
-  //contains what operation is to be performed
+  //contains what operation is to be performed after being selected by user via button
+  //expects type: String
   const [Operation, setOperation] = useState("");
 
   function handleButtonPress(insertedNum: any) {
     if (TempNumPlaceholder === 0) {
       setTempNumPlaceholder(insertedNum);
-      console.log(insertedNum);
+      //console.log(insertedNum);
     } else {
       setTempNumPlaceholder((prev) => (
         prev * 10 + insertedNum
       ));
-      console.log(insertedNum);
+      //console.log(insertedNum);
     }
   }
 
   interface performOperationProps {
-    id: any;
+    //operation buttons pass a string value as the ID
+    id: String;
   }
 
   function PerformOperation({ id }: performOperationProps) {
@@ -41,35 +45,47 @@ function Calculator() {
     function handleClick() {
 
       //early returns
-      if(id != "=") {return};
-      if(id == "AC") {
-        setNum(0);
+      if(id === "AC") {
+        //reset all calculator state
+        setTempNumPlaceholder(0);
         setEquation(0);
         setOperation("");
       };
 
-      //set operation to be made
+      //only these IDs will be considered a valid operation
       if (id === "/" || id === "X" || id === "+" || id === "-") {
-        // Set the current operation and update the equation and placeholder
-        setOperation(id);
-        setEquation(num);
-        setNum(0);
+        // Set the current operation based on the ID of the operation button pressed
+        //update the tempNumPlaceholder back to 0
+        setOperation(id.toString());
+        //console.log(Operation + ":" + typeof(Operation));
+        //equation must be update to hold the first number entered, and then
+        //TempNumPlaceholder will be able to take in the scond half of the equation
+        setEquation(TempNumPlaceholder);
+        //setTempNumPlaceholder reset after passing it's first value (first half of the equation)
+        //to Equation
+        setTempNumPlaceholder(0);
       }
 
-      // Perform the calculation based on the current operation
-      if (Operation == "+") {
-        setNum(Equation + num);
-      } else if (Operation === "-") {
-        setNum(Equation - num);
-      } else if (Operation === "X") {
-        setNum(Equation * num);
-      } else if (Operation === "/") {
-        setNum(Equation / num);
+      //if ID of button selected is "=", then do arithmetic
+      if (id === "=") {
+        // Perform the calculation based on the operation that was set by the other operation buttons
+        let result;
+        if (Operation === "+") {
+          result = Equation + TempNumPlaceholder;
+        } else if (Operation === "-") {
+          result = Equation - TempNumPlaceholder;
+        } else if (Operation === "X") {
+          result = Equation * TempNumPlaceholder;
+        } else if (Operation === "/") {
+          result = Equation / TempNumPlaceholder;
+        }
+        // Display the result
+        setTempNumPlaceholder(result);
+        // Reset equation and operation after calculation
+        setEquation(0);
+        setOperation("");
+        return;
       }
-
-      // Reset equation and operation after calculation
-      setEquation(0);
-      setOperation("");
     }
 
     return <button onClick={handleClick} className="button">{id}</button>;

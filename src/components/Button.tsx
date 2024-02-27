@@ -4,7 +4,10 @@ import React from "react";
 //when i should have been referencing the variable passed to my component
 
 interface ButtonProps {
-    insertedNum: any;
+    //number buttons pass a number typed id when clicked
+    insertedNum: number;
+
+    //Button component will take in a state updater function as a callback
     handleButtonPress(insertedNum): void;
 }
 
