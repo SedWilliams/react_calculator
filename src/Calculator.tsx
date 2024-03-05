@@ -2,7 +2,7 @@
 //  * Make code more cohesive
 //    * --Seperate equation bar into component--
 //    * --Seperate button into its own component--
-//    * Refactor "Operation" (calculation) logic
+//    * --Refactor "Operation" (calculation) logic--
 //    * Make tutorial covering how to make the calculator
 
 import React, { useState } from "react";
